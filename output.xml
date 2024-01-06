@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.11.4 on darwin)" generated="20231216 17:09:42.722" rpa="false" schemaversion="4">
+<suite id="s1" name="Test 1" source="/Users/indrajanaik/Developer/Python/PythonLearnings/Test_1.robot">
+<test id="s1-t1" name="Test_Locator" line="11">
+<kw name="Create Dynamic Xpath">
+<arg>${xpath_1}</arg>
+<arg>${dropdown_item}</arg>
+<arg>replace_single_value=False</arg>
+<if>
+<branch type="IF" condition="not ${replace_single_value}">
+<for flavor="IN">
+<var>${key}</var>
+<var>${value}</var>
+<value>&amp;{values_to_replace}</value>
+<iter>
+<var name="${key}">Country</var>
+<var name="${value}">India</var>
+<kw name="Replace String" library="String">
+<var>${final_xpath}</var>
+<arg>${xpath}</arg>
+<arg>{value_to_replace}</arg>
+<arg>${value}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20231216 17:09:42.733" level="INFO">${final_xpath} = //div[text()='{key_to_replace}']//div[contains(@class,'dummy_class')]//following-sibling::div[text()='India']</msg>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${final_xpath}</var>
+<arg>${final_xpath}</arg>
+<arg>{key_to_replace}</arg>
+<arg>${key}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20231216 17:09:42.733" level="INFO">${final_xpath} = //div[text()='Country']//div[contains(@class,'dummy_class')]//following-sibling::div[text()='India']</msg>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</kw>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</iter>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</for>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</branch>
+<branch type="ELSE">
+<kw name="Replace String" library="String">
+<var>${final_xpath}</var>
+<arg>${xpath}</arg>
+<arg>{value_to_replace}</arg>
+<arg>${values_to_replace}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="NOT RUN" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</kw>
+<status status="NOT RUN" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</branch>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</if>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${final_xpath}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</kw>
+<return>
+<value>${final_xpath}</value>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.733"/>
+</return>
+<status status="PASS" starttime="20231216 17:09:42.732" endtime="20231216 17:09:42.733"/>
+</kw>
+<kw name="Create Dynamic Xpath">
+<arg>//div[text()='{value_to_replace}']</arg>
+<arg>${v}</arg>
+<if>
+<branch type="IF" condition="not ${replace_single_value}">
+<for flavor="IN">
+<var>${key}</var>
+<var>${value}</var>
+<value>&amp;{values_to_replace}</value>
+<iter>
+<var name="${key}"/>
+<var name="${value}"/>
+<kw name="Replace String" library="String">
+<var>${final_xpath}</var>
+<arg>${xpath}</arg>
+<arg>{value_to_replace}</arg>
+<arg>${value}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="NOT RUN" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.734"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${final_xpath}</var>
+<arg>${final_xpath}</arg>
+<arg>{key_to_replace}</arg>
+<arg>${key}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="NOT RUN" starttime="20231216 17:09:42.734" endtime="20231216 17:09:42.734"/>
+</kw>
+<status status="NOT RUN" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.734"/>
+</iter>
+<status status="NOT RUN" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.734"/>
+</for>
+<status status="NOT RUN" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.734"/>
+</branch>
+<branch type="ELSE">
+<kw name="Replace String" library="String">
+<var>${final_xpath}</var>
+<arg>${xpath}</arg>
+<arg>{value_to_replace}</arg>
+<arg>${values_to_replace}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20231216 17:09:42.734" level="INFO">${final_xpath} = //div[text()='India']</msg>
+<status status="PASS" starttime="20231216 17:09:42.734" endtime="20231216 17:09:42.734"/>
+</kw>
+<status status="PASS" starttime="20231216 17:09:42.734" endtime="20231216 17:09:42.734"/>
+</branch>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.734"/>
+</if>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${final_xpath}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20231216 17:09:42.734" endtime="20231216 17:09:42.734"/>
+</kw>
+<return>
+<value>${final_xpath}</value>
+<status status="PASS" starttime="20231216 17:09:42.734" endtime="20231216 17:09:42.734"/>
+</return>
+<status status="PASS" starttime="20231216 17:09:42.733" endtime="20231216 17:09:42.734"/>
+</kw>
+<status status="PASS" starttime="20231216 17:09:42.732" endtime="20231216 17:09:42.734"/>
+</test>
+<status status="PASS" starttime="20231216 17:09:42.723" endtime="20231216 17:09:42.734"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test 1">Test 1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
