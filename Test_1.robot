@@ -1,5 +1,6 @@
 *** Settings ***
 Library    String
+Library    Collections
 
 *** Variables ***
 ${xpath_1}    //div[text()='{key_to_replace}']//div[contains(@class,'dummy_class')]//following-sibling::div[text()='{value_to_replace}']
@@ -10,7 +11,7 @@ ${v}    India
 *** Test Cases ***
 Test_Locator
     Create Dynamic Xpath    ${xpath_1}    ${dropdown_item}    replace_single_value=False
-    Create Dynamic Xpath    //div[text()='{value_to_replace}']    ${v}    
+    Create Dynamic Xpath    //div[text()='{value_to_replace}']    ${v}
 
 *** Keywords ***
 Create Dynamic Xpath
