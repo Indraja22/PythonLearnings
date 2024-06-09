@@ -6,3 +6,5 @@ def while_loop_example():
         print(count)
 
 while_loop_example()
+
+
