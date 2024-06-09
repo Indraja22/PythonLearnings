@@ -1,0 +1,12 @@
+2023-12-17 13:26:05,659 - INFO - Test the custom logger
+2023-12-17 13:26:05,659 - INFO - Test the custom logger
+2023-12-17 13:26:05,659 - INFO - info
+2023-12-17 13:26:05,659 - WARNING - warning
+2023-12-17 13:26:05,660 - ERROR - error
+2023-12-17 13:26:05,660 - CRITICAL - critical
+2023-12-17 13:26:05,660 - ERROR - Test Error
+Traceback (most recent call last):
+  File "/Users/indrajanaik/Developer/Python/PythonLearnings/Logging_in_python.py", line 23, in <module>
+    1/0
+    ~^~
+ZeroDivisionError: division by zero

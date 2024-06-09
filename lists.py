@@ -42,3 +42,7 @@ print(copy_of_finishers)
 
 copy_of_finishers = list(finishers)
 print(copy_of_finishers)
+
+window_titles = ["test_1","test_2","test_3"]
+print(window_titles.pop())
+print(window_titles)
