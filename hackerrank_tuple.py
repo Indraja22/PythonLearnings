@@ -13,3 +13,16 @@ n = int(input())
 integer_list = map(int, input().split())
 t = tuple(integer_list)
 print(hash(t))
+
+help(print)
+
+# help
+# open
+# sort
+# map
+# filter
+# print
+# zip
+# enumerate
+# sum
+# range
