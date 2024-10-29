@@ -1,28 +1,34 @@
-name: Test Job
+name: Daily Artifact Workflow
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Can also be a cron schedule or a manual trigger
+
 jobs:
-  use-file:
+  use-previous-upload-new:
     runs-on: ubuntu-latest
     steps:
-      - name: Download previous day's file
+      # Step 1: Download Previous Day's Artifact
+      - name: Download Previous Day's Artifact
         uses: actions/download-artifact@v3
         with:
-          name: daily-file
-          path: ./previous-file
+          name: daily-artifact
+          path: ./previous-day-artifact
+        continue-on-error: true  # Allows workflow to continue if no artifact is found
 
-      - name: Use the file
-        run: cat ./previous-file/file.txt
-  generate-file:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate file
+      # Step 2: Process Previous Day's Artifact if it Exists
+      - name: Check if Previous Day's Artifact Exists
+        if: ${{ success() && steps.download.outputs['artifact'] != '' }}
+        run: |
+          echo "Previous day's artifact found and ready to use."
+          cat ./previous-day-artifact/file.txt
+
+      # Step 3: Generate or Process Current Day's Artifact
+      - name: Generate Current Day's Artifact
         run: date +%s > file.txt
 
-      - name: Upload artifact
+      # Step 4: Upload Current Day's Artifact
+      - name: Upload Current Day's Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: daily-file
+          name: daily-artifact
           path: file.txt
-          retention-days: 2  # Keep it for 2 days (adjust as needed)
-        
+          retention-days: 2  # Keeps the artifact available for the next day's run
