@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate file
-        run: echo date +%s > file.txt
+        run: date +%s > file.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
