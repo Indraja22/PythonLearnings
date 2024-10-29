@@ -2,6 +2,17 @@ name: Test Job
 on:
   workflow_dispatch:
 jobs:
+  use-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download previous day's file
+        uses: actions/download-artifact@v3
+        with:
+          name: daily-file
+          path: ./previous-file
+
+      - name: Use the file
+        run: cat ./previous-file/file.txt
   generate-file:
     runs-on: ubuntu-latest
     steps:
@@ -14,14 +25,4 @@ jobs:
           name: daily-file
           path: file.txt
           retention-days: 2  # Keep it for 2 days (adjust as needed)
-  use-file:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download previous day's file
-        uses: actions/download-artifact@v3
-        with:
-          name: daily-file
-          path: ./previous-file
-
-      - name: Use the file
-        run: cat ./previous-file/file.txt        
+        
