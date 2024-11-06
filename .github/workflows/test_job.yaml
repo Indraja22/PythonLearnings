@@ -1,38 +1,31 @@
-name: Daily Artifact Workflow
-on:
-  workflow_dispatch:  # or use a cron schedule for daily runs
+name: Artifact Sharing Example
+
+on: [workflow_dispatch]
 
 jobs:
-  use-previous-upload-new:
+  upload-artifact:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Download Latest Available Artifact (Previous Day's)
-      - name: Download Previous Day's Artifact
-        id: download  # Set an ID to reference this step
-        uses: actions/download-artifact@v3
-        with:
-          name: daily-artifact
-          path: ./previous-day-artifact
-        continue-on-error: true  # Allows workflow to continue if no artifact is found
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      # Step 2: Check if Previous Day's Artifact Exists and Process It
-      - name: Check and Process Previous Day's Artifact
-        run: |
-          if [ -f ./previous-day-artifact/file.txt ]; then
-            echo "Previous day's artifact found and ready to use."
-            cat ./previous-day-artifact/file.txt
-          else
-            echo "No previous day's artifact found; skipping."
-          fi
+      - name: Create a file to share
+        run: date+%s > shared-file.txt
 
-      # Step 3: Generate or Process Current Day's Artifact
-      - name: Generate Current Day's Artifact
-        run: date +%s > file.txt
-
-      # Step 4: Upload Current Day's Artifact
-      - name: Upload Current Day's Artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: daily-artifact
-          path: file.txt
-          retention-days: 2  # Retain for 2 days to ensure it’s available the next day
+          name: shared-artifact
+          path: shared-file.txt
+
+  download-artifact:
+    runs-on: ubuntu-latest
+    needs: upload-artifact  # This makes sure download waits for upload to complete
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: shared-artifact
+
+      - name: Show file content
+        run: cat shared-file.txt
