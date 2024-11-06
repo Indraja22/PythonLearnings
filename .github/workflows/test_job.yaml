@@ -1,31 +1,36 @@
-name: Artifact Sharing Example
+name: Daily Test Results Comparison
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:  # Manual trigger for testing
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight (adjust as needed)
 
 jobs:
-  upload-artifact:
+  generate-and-upload:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Create a file to share
-        run: echo $(date '+%Y-%m-%d') > shared-file.txt
+      - name: Generate today's test results
+        run: |
+          # Replace this with actual commands to generate your test results
+          echo "Test results for $(date '+%Y-%m-%d %H:%M:%S')" > todays-results.txt
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: shared-artifact
-          path: shared-file.txt
-
-  download-artifact:
-    runs-on: ubuntu-latest
-    needs: upload-artifact  # This makes sure download waits for upload to complete
-    steps:
-      - name: Download artifact
+      - name: Download yesterday's results (if available)
         uses: actions/download-artifact@v3
         with:
-          name: shared-artifact
+          name: test-results
+        continue-on-error: true  # Allows the workflow to proceed if no artifact exists
 
-      - name: Show file content
-        run: cat shared-file.txt
+      - name: Compare with yesterday's results
+        if: steps.download.outputs.success == 'true'  # Only runs if yesterday's artifact was found
+        run: |
+          echo "Comparing today's results with yesterday's..."
+          diff todays-results.txt test-results.txt || echo "Differences found!"
+
+      - name: Upload today's results for tomorrow's comparison
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: todays-results.txt
